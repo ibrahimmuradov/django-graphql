@@ -16,27 +16,11 @@ class LibraryType(DjangoObjectType):
 
 
 class Query(graphene.ObjectType):
-    all_books = DjangoListField(BookType)
-    all_libraries = DjangoListField(LibraryType) # multiple queries can be used this way
+    all_books = graphene.Field(BookType, id=graphene.Int())
 
-    def resolve_all_books(root, info):
-        return Book.objects.filter(release_year__gte=2020)
-
-    def resolve_all_libraries(root, info):
-        return Library.objects.all()
+    def resolve_all_books(root, info, id):
+        return Book.objects.get(pk=id)
 
 
 schema = graphene.Schema(query=Query)
-
-
-# query{
-#   allBooks{
-#     id
-#     name
-#   }
-#   allLibraries{
-#     id
-#     name
-#   }
-# }
 
