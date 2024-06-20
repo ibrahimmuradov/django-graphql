@@ -1,5 +1,5 @@
 import graphene
-from graphene_django import DjangoObjectType, DjangoListField
+from graphene_django import DjangoObjectType
 from .models import Book
 
 
@@ -7,6 +7,7 @@ class BookType(DjangoObjectType):
     class Meta:
         model = Book
         fields = ("id", "user", "name", "author_name", "release_year", "library")
+
 
 class Query(graphene.ObjectType):
     all_books = graphene.List(BookType)  # DjangoListField and graphene.List methods do the same thing
