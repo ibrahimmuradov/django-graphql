@@ -16,7 +16,9 @@ class LibraryType(DjangoObjectType):
 
 
 class Query(graphene.ObjectType):
-    all_books = graphene.Field(BookType, id=graphene.Int())
+    all_books = graphene.Field(BookType, id=graphene.Int())  # single object data can be retrieved this way,
+    # graphene.Field method states that a single field is used,
+    # graphene.Int() method specifies the type of field to use
 
     def resolve_all_books(root, info, id):
         return Book.objects.get(pk=id)
