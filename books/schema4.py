@@ -19,7 +19,7 @@ class Query(graphene.ObjectType):
     all_books = graphene.Field(BookType, id=graphene.Int())  # single object data can be retrieved this way,
     # graphene.Field method states that a single field is used,
     # graphene.Int() method specifies the type of field to use
-    all_book_libraries = graphene.List(LibraryType, book_id=graphene.Int())
+    all_book_libraries = graphene.List(LibraryType, book_id=graphene.Int())  # get library objects linked to book object
 
     def resolve_all_books(root, info, id):
         return Book.objects.get(pk=id)
@@ -33,4 +33,15 @@ class Query(graphene.ObjectType):
 
 
 schema = graphene.Schema(query=Query)
+
+# query{
+#   allBooks(id:1){
+#     id
+#     name
+#   }
+#   allBookLibraries(bookId:1){
+#     id
+#     name
+#   }
+# }
 
